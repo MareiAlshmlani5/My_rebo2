@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2025-12-22T14:01:34.278462+00:00",
+  "rows": {
+    "orders": 5,
+    "users": 4
+  },
+  "outputs": {
+    "orders": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\orders.parquet",
+    "users": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\users.parquet"
+  }
+}
