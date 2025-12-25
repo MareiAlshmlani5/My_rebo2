@@ -9,7 +9,7 @@ REPORTS = ROOT / "reports"
 
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
-
+#___________________________import function__________________________
 from bootcamp_data.transforms import require_columns
 
 from bootcamp_data.transforms import assert_non_empty
@@ -22,17 +22,22 @@ from bootcamp_data.transforms import add_missing_flags
 
 from bootcamp_data.transforms import normalize_text
 
+from bootcamp_data.io import write_parquet
 
 from bootcamp_data.config import make_paths
+
+from bootcamp_data.quality import  assert_in_range
+#_______________________
+
+
+
 
 p = make_paths(ROOT)
 
 log = logging.getLogger(__name__) 
 def main() -> None: 
     
-   def write_parquet(df: pd.DataFrame, path: Path) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    df.to_parquet(path, index=False)
+   
 
     orders = pd.read_parquet(p.processed /"orders.parquet")
     users = pd.read_parquet(p.processed /"users.parquet")
@@ -73,8 +78,10 @@ def main() -> None:
         .pipe(add_missing_flags, cols=["amount", "quantity"])
     )
 
-
+    orders = orders.assign(status_norm=normalize_text(orders["status"]))
+    
     orders = orders.assign (status_clean=apply_mapping(orders["status_norm"], mapping),)
+
     print(orders["status_clean"].unique())
 
     
@@ -92,4 +99,6 @@ def main() -> None:
     report_orders.to_parquet(REPORTS / "orders_missingness.parquet", index=True)
     report_users.to_parquet(REPORTS / "users_missingness.parquet", index=True)
 
+    assert_in_range(orders_clean["amount"], lo=0, name="amount")
+    assert_in_range(orders_clean["quantity"], lo=0, name="quantity")
 if __name__ == "__main__":  main()

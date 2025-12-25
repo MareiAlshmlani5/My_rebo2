@@ -68,3 +68,32 @@ def dedupe_keep_latest(df: pd.DataFrame, key_cols: list[str], ts_col: str) -> pd
           .drop_duplicates(subset=key_cols, keep="last")
           .reset_index(drop=True)
     )
+def parse_datetime(
+        df : pd.DataFrame,
+        col : str,
+        *,
+        utc : bool = True ,) -> pd.DataFrame: 
+        dt = pd.to_datetime(df[col], errors="coerce", utc=utc)
+        return df.assign(**{col : dt})
+
+def add_time_parts(df: pd.DataFrame, ts_col: str) -> pd.DataFrame:
+    ts = df[ts_col]
+    return df.assign(
+        date=ts.dt.date,
+        year=ts.dt.year,
+        month=ts.dt.to_period("M").astype("string"),
+        dow=ts.dt.day_name(),
+        hour=ts.dt.hour,
+    )
+
+def iqr_bounds(s, k=1.5):
+    q1 = s.quantile(0.25)
+    q3 = s.quantile(0.75)
+    iqr = q3 - q1
+    return float(q1 - k*iqr), float(q3 + k*iqr)
+
+def winsorize(s, lo=0.01, hi=0.99):
+    a, b = s.quantile(lo), s.quantile(hi)
+    return s.clip(lower=a, upper=b)
+
+
