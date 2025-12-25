@@ -1,11 +1,37 @@
 {
-  "timestamp_utc": "2025-12-22T14:01:34.278462+00:00",
-  "rows": {
-    "orders": 5,
-    "users": 4
-  },
-  "outputs": {
-    "orders": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\orders.parquet",
-    "users": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\users.parquet"
+  "rows_in_orders_raw": 5,
+  "rows_in_users": 4,
+  "rows_out_analytics": 5,
+  "missing_created_at": 1,
+  "country_match_rate": 1.0,
+  "columns_out": [
+    "order_id",
+    "user_id",
+    "amount",
+    "quantity",
+    "created_at",
+    "status",
+    "amount_isna",
+    "quantity_isna",
+    "status_clean",
+    "date",
+    "year",
+    "month",
+    "dow",
+    "hour",
+    "amount_winsor",
+    "country",
+    "signup_date"
+  ],
+  "config": {
+    "root": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work",
+    "raw_orders": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\raw\\orders.csv",
+    "raw_users": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\raw\\users.csv",
+    "out_orders_clean": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\orders_clean.parquet",
+    "out_users": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\users.parquet",
+    "out_analytics": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\analytics_table.parquet",
+    "run_meta": "C:\\Users\\Marei\\project\\bootcamp\\week2-data-work\\data\\processed\\_run_meta.json",
+    "winsor_lower_q": "0.01",
+    "winsor_upper_q": "0.99"
   }
 }
