@@ -174,10 +174,12 @@ Can users be analyzed in cohorts based on signup_date?
 How sensitive are results to different winsorization thresholds?
 
 ## Notes
-
-Do not run files inside src/bootcamp_data directly.
+- Runtime warnings may appear when calculating statistics on empty subsets during exploratory analysis; these do not affect the results.
+- Do not run files inside src/bootcamp_data directly.
 
 Always run ETL via:
 python scripts/run_etl.py
 
 ## Following this README
+
+
